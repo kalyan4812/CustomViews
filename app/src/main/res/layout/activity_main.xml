@@ -8,13 +8,5 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.saikalyandaroju.customviews.views.CustomImageView
-        android:id="@+id/customview"
-        android:layout_width="wrap_content"
-        app:image_ref="@drawable/poster"
-        app:text="vakeelsaab"
-        app:image_width="100dp"
-        app:image_height="100dp"
-        app:text_size="10sp"
-        android:layout_height="300dp" />
+
 </LinearLayout>
