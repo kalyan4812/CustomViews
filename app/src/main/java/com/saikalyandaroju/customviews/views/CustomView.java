@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -19,6 +21,9 @@ public class CustomView extends View {
     private Paint paint;
     int color;
     int size;
+
+    private float circleX, circleY;
+    private float radius = 100f;
 
     public CustomView(Context context) {
         super(context);
@@ -70,5 +75,43 @@ public class CustomView extends View {
         rect.right = rect.left + size;
 
         canvas.drawRect(rect, paint);
+        if (circleX == 0 || circleY == 0) {
+            circleX = getWidth() / 2;
+            circleY = getHeight() / 2;
+        }
+        canvas.drawCircle(circleX, circleY, radius, paint);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        boolean value = super.onTouchEvent(event);
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            float sx = event.getX();
+            float sy = event.getY();
+            if (rect.left < sx && rect.right > sx && rect.top < sy && rect.bottom > sy) {
+                radius = radius + 10f;
+                postInvalidate();
+                return true;
+            }
+        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            Log.i("check", "ist a move");
+            float x = event.getX();
+            float y = event.getY();
+            // checking whteher user touched coordinate is on/inside the circle or not.
+            double dx = Math.pow(x - circleX, 2);
+            double dy = Math.pow(y - circleY, 2);
+            if (dx + dy < Math.pow(radius, 2)) {
+                circleX = x;
+                circleY = y;
+                postInvalidate();
+                return true;
+            }
+
+        }
+
+        return value;
+
+
     }
 }

@@ -9,11 +9,11 @@
     tools:context=".MainActivity">
 
     <com.saikalyandaroju.customviews.views.CustomView
-        android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
         android:id="@+id/customview"
         app:square_color="@android:color/holo_green_light"
-        app:square_size="300dp"
+        app:square_size="150dp"
         android:layout_margin="20dp" />
 
     <Button
