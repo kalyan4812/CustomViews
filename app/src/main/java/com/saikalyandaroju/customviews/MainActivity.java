@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-
 public class MainActivity extends AppCompatActivity {
-
-
 
 
     @Override
@@ -20,5 +17,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
 }
+/*
+ To add animations to a view.
+        //Animation
+      Animation  topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+
+
+        img.setAnimation(topAnim);
+
+ */
