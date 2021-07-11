@@ -2,14 +2,20 @@ package com.saikalyandaroju.customviews.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.Nullable;
 
@@ -24,6 +30,7 @@ public class CustomView extends View {
 
     private float circleX, circleY;
     private float radius = 100f;
+    private Bitmap image;
 
     public CustomView(Context context) {
         super(context);
@@ -50,6 +57,18 @@ public class CustomView extends View {
         rect = new Rect();
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+
+        // note if if you want to pass normal drawable as image use Drawable as return type.
+        //Bitmap is for jpg kind of files.if you pass normal drwable you will get null pointer exception.
+
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                image=getResizedBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.poster),getWidth(),getHeight());
+            }
+        });
+
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CustomView);
             color = typedArray.getColor(R.styleable.CustomView_square_color, Color.BLACK);
@@ -58,6 +77,15 @@ public class CustomView extends View {
             typedArray.recycle();
 
         }
+    }
+
+    private Bitmap getResizedBitmap(Bitmap images, int width, int height) {
+        Matrix matrix=new Matrix();
+        RectF src=new RectF(0,0,images.getWidth(),images.getHeight());
+        RectF dest=new RectF(0,0,width,height);
+        matrix.setRectToRect(src,dest,Matrix.ScaleToFit.CENTER);
+
+        return Bitmap.createBitmap(images,0,0,images.getWidth(),images.getHeight(),matrix,true);
     }
 
     public void changeColor() {
@@ -80,6 +108,8 @@ public class CustomView extends View {
             circleY = getHeight() / 2;
         }
         canvas.drawCircle(circleX, circleY, radius, paint);
+
+        canvas.drawBitmap(image,0,0,null);
     }
 
     @Override
