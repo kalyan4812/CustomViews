@@ -8,19 +8,13 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.saikalyandaroju.customviews.views.CustomView
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+    <com.saikalyandaroju.customviews.views.CustomImageView
         android:id="@+id/customview"
-        app:square_color="@android:color/holo_green_light"
-        app:square_size="150dp"
-        android:layout_margin="20dp" />
-
-    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="change"
-        android:layout_gravity="center"
-        android:text="changecolor" />
-
+        app:image_ref="@drawable/poster"
+        app:text="vakeelsaab"
+        app:image_width="100dp"
+        app:image_height="100dp"
+        app:text_size="10sp"
+        android:layout_height="300dp" />
 </LinearLayout>

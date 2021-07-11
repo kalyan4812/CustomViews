@@ -1,30 +1,28 @@
 package com.saikalyandaroju.customviews;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.view.View;
 
-import com.saikalyandaroju.customviews.views.CustomView;
+import com.saikalyandaroju.customviews.views.CustomImageView;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    CustomView customView;
+    CustomImageView customView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        customView=findViewById(R.id.customview);
+       customView=findViewById(R.id.customview);
+       customView.setText("Custom Text");
+       customView.setImageResource(R.drawable.poster);
+       customView.setSize(200,200);
+
 
     }
 
 
-    public void change(View view) {
-        customView.changeColor();
-    }
+
 }
